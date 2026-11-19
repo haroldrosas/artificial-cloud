@@ -13,6 +13,8 @@
   <link rel="preload" href="assets/centro-de-datos.webp" as="image">
   <link rel="stylesheet" href="styles.css">
   <script src="main.js" defer></script>
+  <link rel="stylesheet" href="rack-3d.css">
+  <script src="rack-3d.js" defer></script>
 </head>
 <body id="inicio">
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -54,6 +56,37 @@
               <span class="download-icon" aria-hidden="true"></span> Descargar brochure
             </a>
           </div>
+        </div>
+        <div class="rack-experience" data-rack-experience hidden>
+          <button class="button button-ghost rack-launch" type="button" aria-controls="rack-viewer">Explorar rack 3D</button>
+          <p class="rack-status" role="status"></p>
+          <section id="rack-viewer" class="rack-viewer" aria-labelledby="rack-title" hidden>
+            <div class="rack-topline">
+              <h2 id="rack-title">Rack de centro de datos <span>3D</span></h2>
+              <button type="button" class="rack-close">Ver foto</button>
+            </div>
+            <div class="rack-stage">
+              <canvas class="rack-gpu" aria-hidden="true"></canvas>
+              <canvas class="rack-cpu" aria-hidden="true" hidden></canvas>
+              <div class="rack-pins">
+                <button type="button" class="rack-pin" data-rack-part="servers" aria-pressed="true" aria-label="Explorar servidores" title="Servidores" hidden>1</button>
+                <button type="button" class="rack-pin" data-rack-part="network" aria-pressed="false" aria-label="Explorar redes" title="Redes" hidden>2</button>
+                <button type="button" class="rack-pin" data-rack-part="power" aria-pressed="false" aria-label="Explorar respaldo" title="Respaldo eléctrico" hidden>3</button>
+              </div>
+              <div class="rack-controls" role="group" aria-label="Girar el modelo">
+                <button type="button" data-rack-turn="-1" aria-label="Girar a la izquierda" title="Girar a la izquierda">Izquierda</button>
+                <button type="button" data-rack-reset>Restablecer</button>
+                <button type="button" data-rack-turn="1" aria-label="Girar a la derecha" title="Girar a la derecha">Derecha</button>
+              </div>
+            </div>
+            <p class="rack-help">Arrastra para girar o selecciona un componente.</p>
+            <div class="rack-parts" role="group" aria-label="Componentes del rack">
+              <button type="button" data-rack-part="servers" aria-pressed="true">Servidores</button>
+              <button type="button" data-rack-part="network" aria-pressed="false">Redes</button>
+              <button type="button" data-rack-part="power" aria-pressed="false">Respaldo</button>
+            </div>
+            <p class="rack-description" aria-live="polite">Virtualización de servidores, almacenamiento y migración de cargas de trabajo a la nube.</p>
+          </section>
         </div>
       </div>
     </section>
