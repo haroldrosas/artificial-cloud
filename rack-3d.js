@@ -6,15 +6,28 @@
   const cpuCanvas = stage.querySelector('.rack-cpu');
   const launch = experience.querySelector('.rack-launch');
   const close = experience.querySelector('.rack-close');
+  const explore = experience.querySelector('.rack-explore');
+  const tour = experience.querySelector('.rack-tour');
+  const powerPanel = experience.querySelector('.rack-power');
+  const powerToggle = powerPanel.querySelector('.rack-power-toggle');
+  const advanceTime = powerPanel.querySelector('.rack-power-advance');
+  const load = powerPanel.querySelector('#rack-load');
+  const loadValue = powerPanel.querySelector('#rack-load-value');
+  const announcement = powerPanel.querySelector('[data-power-announcement]');
+  const powerOutputs = new Map(
+    ['grid', 'ups', 'pdu', 'rack', 'runtime', 'battery'].map(name => [name, powerPanel.querySelector(`[data-power-${name}]`)])
+  );
+  const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
   const status = experience.querySelector('.rack-status');
   const description = experience.querySelector('.rack-description');
   const hero = experience.closest('.hero');
   const pins = [...stage.querySelectorAll('.rack-pin')];
   const selectors = [...experience.querySelectorAll('[data-rack-part]')];
   const parts = {
-    servers: { id: 1, anchor: [0.54, 0.46, 0.83], copy: 'Virtualización de servidores, almacenamiento y migración de cargas de trabajo a la nube.' },
-    network: { id: 2, anchor: [-0.46, 1.26, 0.84], copy: 'Switches y paneles de conexión para redes LAN, enlaces de fibra y cableado estructurado.' },
-    power: { id: 3, anchor: [0.48, -1.24, 0.83], copy: 'UPS, baterías y distribución de energía para respaldar equipos críticos durante una interrupción.' },
+    servers: { id: 1, anchor: [0.54, 0.46, 0.83], copy: 'Los servidores ejecutan aplicaciones y alojan máquinas virtuales. La carga del rack influye en la autonomía de la UPS.' },
+    network: { id: 2, anchor: [-0.46, 1.26, 0.84], copy: 'El switch conecta los servidores con la red. En este escenario recibe energía de la PDU y sigue operativo mientras la UPS tenga batería.' },
+    power: { id: 3, anchor: [0.48, -1.24, 0.83], copy: 'La UPS alimenta la PDU durante un corte. La autonomía disminuye a medida que aumenta el consumo del rack.' },
+    pdu: { id: 4, anchor: [-0.51, -0.70, 0.83], copy: 'La PDU recibe la alimentación de la UPS y la distribuye al switch y a los servidores.' },
   };
   const startYaw = 0.42;
   const startPitch = 0.16;
@@ -25,21 +38,45 @@
   let drag;
   let frameId = 0;
   let open = false;
+  let exploded = false;
+  let spread = 0;
+  let spreadTransition;
+  let tourTimer;
+  const tourOrder = ['network', 'servers', 'pdu', 'power'];
+  const batteryCapacity = 360;
+  const advanceMinutes = 5;
+  let batteryEnergy = batteryCapacity;
+  let gridOnline = true;
+  let powerState = 0;
 
   const vertex = `
     attribute vec3 point, normal, color;
     attribute float part, glow;
     uniform mat4 projectionView;
+    uniform float spread;
+    uniform vec2 doorRotation;
     varying vec3 vWorld, vNormal, vColor;
     varying float vPart, vGlow;
     void main() {
-      vWorld = point; vNormal = normal; vColor = color; vPart = part; vGlow = glow;
-      gl_Position = projectionView * vec4(point, 1.0);
+      vWorld = point;
+      vNormal = normal;
+      if (part > 4.5) {
+        vec2 hinge = vec2(0.855, 0.75);
+        vec2 relative = point.xz - hinge;
+        mat2 rotation = mat2(doorRotation.x, -doorRotation.y, doorRotation.y, doorRotation.x);
+        vWorld.xz = hinge + rotation * relative;
+        vNormal.xz = rotation * normal.xz;
+      } else if (part > 0.5) {
+        vWorld.z += spread * (part > 1.5 && part < 2.5 ? 0.34 : 0.56);
+      }
+      vColor = color; vPart = part; vGlow = glow;
+      gl_Position = projectionView * vec4(vWorld, 1.0);
     }`;
   const fragment = `
     precision mediump float;
     uniform vec3 eye;
     uniform float selected;
+    uniform float powerState;
     varying vec3 vWorld, vNormal, vColor;
     varying float vPart, vGlow;
     void main() {
@@ -58,6 +95,10 @@
       c += partSelected * vec3(0.015, 0.11, 0.145);
       c = mix(c, vColor, vGlow);
       c += partSelected * vec3(0.035, 0.22, 0.24) * vGlow;
+      if (vGlow > 0.5 && vPart > 0.5 && vPart < 4.5) {
+        if (powerState > 1.5) c = c * 0.19 + vec3(0.04, 0.05, 0.06);
+        else if (powerState > 0.5 && abs(vPart - 3.0) < 0.2) c = vec3(1.0, 0.68, 0.26);
+      }
       gl_FragColor = vec4(c, 1.0);
     }`;
 
@@ -109,15 +150,16 @@
     box(0,0,-.762,1.59,3.2,.09,rackBlack);
     for (const direction of [-1, 1]) {
       const x = direction * .815;
-      box(x,.018,0,.08,3.26,1.58,panel);
+      const accessPanel = direction > 0 ? 5 : 0;
+      box(x,.018,0,.08,3.26,1.58,panel,accessPanel);
       box(x,.025,.763,.078,3.34,.092,rail);
       box(x,.025,-.744,.079,3.27,.1,steel);
-      box(direction*.86,.32,0,.017,2.32,1.29,panel);
+      box(direction*.86,.32,0,.017,2.32,1.29,panel,accessPanel);
       for (let row = 0; row < 31; row += 1) {
         const y = -1.39 + row*.092;
         box(direction*.69,y,.796,.027,.027,.022,steel);
         for (let column = 0; column < 7; column += 1) {
-          box(direction*.872,y,-.565 + column*.148,.013,.021,.084,vent);
+          box(direction*.872,y,-.565 + column*.148,.013,.021,.084,vent,accessPanel);
         }
       }
     }
@@ -160,8 +202,9 @@
       box(.569,y+.02,.802,.082,.075,.022,rackBlack,1);
       box(.577,y+.014,.817,.028,.018,.01,green,1,.92);
     }
-    unit(-.712,.147,0,darkSteel);
-    for (let i = 0; i < 18; i += 1) box(-.6+i*.068,-.716,.791,.032,.024,.02,vent);
+    unit(-.712,.147,4,darkSteel);
+    for (let i = 0; i < 10; i += 1) box(-.56+i*.108,-.715,.791,.063,.049,.02,vent,4);
+    box(.552,-.712,.795,.055,.048,.02,led,4,.95);
     for (const y of [-.963,-1.292]) {
       unit(y,.295,3,facePlate);
       for (let i = 0; i < 10; i += 1) box(-.565+i*.074,y,.796,.035,.148,.018,vent,3);
@@ -211,6 +254,9 @@
     const matrixUniform = gl.getUniformLocation(program, 'projectionView');
     const eyeUniform = gl.getUniformLocation(program, 'eye');
     const selectionUniform = gl.getUniformLocation(program, 'selected');
+    const spreadUniform = gl.getUniformLocation(program, 'spread');
+    const doorUniform = gl.getUniformLocation(program, 'doorRotation');
+    const powerUniform = gl.getUniformLocation(program, 'powerState');
     const batches = [[geometry.lines,gl.LINES],[geometry.triangles,gl.TRIANGLES]].map(([data, mode]) => {
       const buffer = gl.createBuffer();
       gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
@@ -219,13 +265,16 @@
     });
     return {
       canvas,
-      draw(matrix, eye, selected) {
+      draw(matrix, eye, selected, doorRotation) {
         gl.viewport(0,0,canvas.width,canvas.height);
         gl.clearColor(0,0,0,0);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         gl.uniformMatrix4fv(matrixUniform, false, matrix);
         gl.uniform3fv(eyeUniform, eye);
         gl.uniform1f(selectionUniform, selected);
+        gl.uniform1f(spreadUniform, spread);
+        gl.uniform2fv(doorUniform, doorRotation);
+        gl.uniform1f(powerUniform, powerState);
         for (const {buffer,mode,count} of batches) {
           gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
           for (const {location,size,offset} of attributes) {
@@ -248,7 +297,7 @@
 
     return {
       canvas,
-      draw(matrix, eye, selected) {
+      draw(matrix, eye, selected, doorRotation) {
         const {width,height} = canvas;
         context.clearRect(0,0,width,height);
         function project([x,y,z]) {
@@ -272,15 +321,21 @@
 
         const faces = [];
         for (const {points,normal,color,part,glow} of geometry.surfaces) {
-          const toEye = eye.map((value, i) => value - points[0][i]);
-          if (dot(toEye,normal) <= 0) continue;
-          const light = 0.63 + 0.57*Math.max(0,dot(normal,keyDirection));
-          const rim = Math.max(0,dot(normal,rimDirection));
-          const shade = color.map((channel,i) => channel*(glow+light*(1-glow)) + rim*[.065,.15,.22][i]*(1-glow));
+          const worldPoints = spread && part ? points.map(point => rackPoint(point,part,doorRotation)) : points;
+          const worldNormal = spread && part === 5 ? rotateDoor(normal,doorRotation) : normal;
+          const toEye = eye.map((value, i) => value - worldPoints[0][i]);
+          if (dot(toEye,worldNormal) <= 0) continue;
+          const light = 0.63 + 0.57*Math.max(0,dot(worldNormal,keyDirection));
+          const rim = Math.max(0,dot(worldNormal,rimDirection));
+          let shade = color.map((channel,i) => channel*(glow+light*(1-glow)) + rim*[.065,.15,.22][i]*(1-glow));
           if (part === selected) {
             shade[0] += .023; shade[1] += .13; shade[2] += .17;
           }
-          const screen = points.map(project);
+          if (glow > 0.5 && part > 0 && part < 5) {
+            if (powerState === 2) shade = shade.map((channel,i) => channel*.19 + [.04,.05,.06][i]);
+            else if (powerState === 1 && part === 3) shade = [1,.68,.26];
+          }
+          const screen = worldPoints.map(project);
           const depth = screen.reduce((sum,point)=>sum+point[2],0)/4;
           faces.push({screen,depth,fill:rgb(shade)});
         }
@@ -316,8 +371,20 @@
     const length = Math.hypot(...v);
     return v.map((x) => x/length);
   };
+  function rotateDoor([x,y,z], [cos,sin]) {
+    return [x*cos + z*sin, y, -x*sin + z*cos];
+  }
+
+  function rackPoint([x,y,z], part, doorRotation) {
+    if (part === 5) {
+      const [rotatedX, , rotatedZ] = rotateDoor([x-.855,0,z-.75],doorRotation);
+      return [rotatedX+.855,y,rotatedZ+.75];
+    }
+    return [x,y,z + spread*(part === 2 ? .34 : .56)];
+  }
+
   function camera(aspect) {
-    const distance = 7.85 * Math.max(1,0.74/aspect);
+    const distance = (7.85 + .8*spread) * Math.max(1,0.74/aspect);
     const eye = [
       distance*Math.sin(yaw)*Math.cos(pitch), distance*Math.sin(pitch),
       distance*Math.cos(yaw)*Math.cos(pitch),
@@ -340,9 +407,16 @@
     return {matrix,eye};
   }
 
-  function render() {
+  function render(now) {
     frameId = 0;
     if (!open) return;
+    if (spreadTransition) {
+      const {start,from,to} = spreadTransition;
+      const elapsed = Math.min(1, Math.max(0, (now-start)/360));
+      spread = from + (to-from)*(1 - (1-elapsed)**3);
+      if (elapsed === 1) spreadTransition = undefined;
+      else requestRender();
+    }
     const {width,height} = stage.getBoundingClientRect();
     if (width < 1 || height < 1) return;
     const {canvas} = renderer;
@@ -354,7 +428,9 @@
       canvas.height = pixelHeight;
     }
     const {matrix,eye} = camera(width/height);
-    renderer.draw(matrix,eye,parts[current].id);
+    const doorAngle = -1.32*spread;
+    const doorRotation = [Math.cos(doorAngle), Math.sin(doorAngle)];
+    renderer.draw(matrix,eye,parts[current].id,doorRotation);
     for (const pin of pins) {
       if (Math.cos(yaw) < 0.19) {
         if (document.activeElement === pin) {
@@ -363,7 +439,8 @@
         pin.hidden = true;
         continue;
       }
-      const [x,y,z] = parts[pin.dataset.rackPart].anchor;
+      const {anchor,id} = parts[pin.dataset.rackPart];
+      const [x,y,z] = rackPoint(anchor,id,doorRotation);
       const perspective = matrix[3]*x + matrix[7]*y + matrix[11]*z + matrix[15];
       const u = (matrix[0]*x + matrix[4]*y + matrix[8]*z + matrix[12])/perspective;
       const v = (matrix[1]*x + matrix[5]*y + matrix[9]*z + matrix[13])/perspective;
@@ -381,6 +458,74 @@
     current = name;
     description.textContent = parts[name].copy;
     for (const button of selectors) button.setAttribute('aria-pressed', String(button.dataset.rackPart === name));
+    requestRender();
+  }
+
+  function stopTour() {
+    clearTimeout(tourTimer);
+    tourTimer = undefined;
+    tour.textContent = 'Iniciar recorrido';
+  }
+
+  function setExploded(next) {
+    exploded = next;
+    explore.setAttribute('aria-pressed', String(next));
+    explore.textContent = next ? 'Cerrar vista interior' : 'Explorar por dentro';
+    powerPanel.hidden = !next;
+    tour.hidden = !next;
+    if (next) {
+      yaw = startYaw;
+      pitch = startPitch;
+    } else {
+      stopTour();
+    }
+    const target = Number(next);
+    if (motionPreference.matches || !open || spread === target) {
+      spreadTransition = undefined;
+      spread = target;
+    } else {
+      spreadTransition = {start: performance.now(), from: spread, to: target};
+    }
+    requestRender();
+  }
+
+  function startTour() {
+    tour.textContent = 'Detener recorrido';
+    function showStop(index) {
+      selectPart(tourOrder[index]);
+      tourTimer = setTimeout(() => {
+        const next = index+1;
+        if (next === tourOrder.length) stopTour();
+        else showStop(next);
+      }, 4100);
+    }
+    showStop(0);
+  }
+
+  function updatePower(announce = false) {
+    const watts = Number(load.value);
+    const batteryPercent = Math.round(100*batteryEnergy/batteryCapacity);
+    powerState = gridOnline ? 0 : batteryEnergy > 0 ? 1 : 2;
+    const remaining = Math.floor(3600*batteryEnergy/watts);
+    const minutes = Math.floor(remaining/60);
+    const seconds = remaining%60;
+    const runtime = gridOnline ? 'En espera' : `${minutes} min ${String(seconds).padStart(2,'0')} s`;
+    const energized = powerState !== 2;
+    const powerReadings = {
+      grid: gridOnline ? 'Activa' : 'Sin suministro',
+      ups: ['En línea', 'En batería', 'Sin batería'][powerState],
+      pdu: energized ? 'Distribuyendo' : 'Sin energía',
+      rack: energized ? 'Operativos' : 'Apagados',
+      runtime,
+      battery: `${batteryPercent} %`,
+    };
+    powerPanel.dataset.state = ['grid', 'battery', 'depleted'][powerState];
+    for (const [name, node] of powerOutputs) node.textContent = powerReadings[name];
+    powerToggle.textContent = gridOnline ? 'Simular corte de energía' : 'Restablecer red eléctrica';
+    advanceTime.disabled = powerState !== 1;
+    loadValue.value = `${watts} W`;
+    load.setAttribute('aria-valuetext', `${watts} vatios`);
+    if (announce) announcement.textContent = `UPS: ${powerReadings.ups}. Equipos: ${powerReadings.rack}. Autonomía: ${runtime}.`;
     requestRender();
   }
 
@@ -417,6 +562,7 @@
   }
 
   function hideRack() {
+    stopTour();
     open = false;
     viewer.hidden = true;
     launch.hidden = false;
@@ -424,20 +570,46 @@
     launch.focus({preventScroll:true});
   }
 
-  for (const button of selectors) button.addEventListener('click', () => selectPart(button.dataset.rackPart));
+  for (const button of selectors) {
+    button.addEventListener('click', () => {
+      stopTour();
+      selectPart(button.dataset.rackPart);
+    });
+  }
+  explore.addEventListener('click', () => setExploded(!exploded));
+  tour.addEventListener('click', () => {
+    if (tourTimer !== undefined) stopTour();
+    else startTour();
+  });
+  powerToggle.addEventListener('click', () => {
+    stopTour();
+    gridOnline = !gridOnline;
+    batteryEnergy = batteryCapacity;
+    if (!gridOnline) selectPart('power');
+    updatePower(true);
+  });
+  advanceTime.addEventListener('click', () => {
+    batteryEnergy = Math.max(0, batteryEnergy - Number(load.value)*advanceMinutes/60);
+    updatePower(true);
+    if (advanceTime.disabled) powerToggle.focus({preventScroll:true});
+  });
+  load.addEventListener('input', () => updatePower());
   for (const button of stage.querySelectorAll('[data-rack-turn]')) {
     button.addEventListener('click', () => {
+      stopTour();
       yaw += Number(button.dataset.rackTurn) * Math.PI/8;
       requestRender();
     });
   }
   stage.querySelector('[data-rack-reset]').addEventListener('click', () => {
+    stopTour();
     yaw = startYaw;
     pitch = startPitch;
     requestRender();
   });
   stage.addEventListener('pointerdown', event => {
     if (drag || event.target !== renderer?.canvas || !event.isPrimary || event.button !== 0) return;
+    stopTour();
     drag = { id: event.pointerId, x: event.clientX, y: event.clientY };
     renderer.canvas.setPointerCapture(event.pointerId);
   });
@@ -453,6 +625,7 @@
   gpuCanvas.addEventListener('webglcontextlost', event => {
     event.preventDefault();
     const insideViewer = viewer.contains(document.activeElement);
+    stopTour();
     open = false;
     viewer.hidden = true;
     launch.hidden = true;
@@ -473,7 +646,8 @@
   if (typeof ResizeObserver === 'function') new ResizeObserver(requestRender).observe(stage);
   else window.addEventListener('resize', requestRender);
   experience.hidden = false;
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  selectPart(current);
+  updatePower();
   const desktop = window.matchMedia('(min-width: 961px) and (pointer: fine)').matches;
-  if (desktop && !reducedMotion && !navigator.connection?.saveData) showRack(false);
+  if (desktop && !motionPreference.matches && !navigator.connection?.saveData) showRack(false);
 })();

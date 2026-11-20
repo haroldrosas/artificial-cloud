@@ -13,8 +13,8 @@
   <link rel="preload" href="assets/centro-de-datos.webp" as="image">
   <link rel="stylesheet" href="styles.css">
   <script src="main.js" defer></script>
-  <link rel="stylesheet" href="rack-3d.css">
-  <script src="rack-3d.js" defer></script>
+  <link rel="stylesheet" href="rack-3d.css?v=interior">
+  <script src="rack-3d.js?v=interior" defer></script>
 </head>
 <body id="inicio">
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -65,13 +65,18 @@
               <h2 id="rack-title">Rack de centro de datos <span>3D</span></h2>
               <button type="button" class="rack-close">Ver foto</button>
             </div>
+            <div class="rack-toolbar">
+              <button type="button" class="rack-explore" aria-pressed="false" aria-controls="rack-power-panel">Explorar por dentro</button>
+              <button type="button" class="rack-tour" hidden>Iniciar recorrido</button>
+            </div>
             <div class="rack-stage">
               <canvas class="rack-gpu" aria-hidden="true"></canvas>
               <canvas class="rack-cpu" aria-hidden="true" hidden></canvas>
               <div class="rack-pins">
                 <button type="button" class="rack-pin" data-rack-part="servers" aria-pressed="true" aria-label="Explorar servidores" title="Servidores" hidden>1</button>
-                <button type="button" class="rack-pin" data-rack-part="network" aria-pressed="false" aria-label="Explorar redes" title="Redes" hidden>2</button>
-                <button type="button" class="rack-pin" data-rack-part="power" aria-pressed="false" aria-label="Explorar respaldo" title="Respaldo eléctrico" hidden>3</button>
+                <button type="button" class="rack-pin" data-rack-part="network" aria-pressed="false" aria-label="Explorar switch" title="Switch" hidden>2</button>
+                <button type="button" class="rack-pin" data-rack-part="power" aria-pressed="false" aria-label="Explorar UPS" title="UPS" hidden>3</button>
+                <button type="button" class="rack-pin" data-rack-part="pdu" aria-pressed="false" aria-label="Explorar PDU" title="PDU" hidden>4</button>
               </div>
               <div class="rack-controls" role="group" aria-label="Girar el modelo">
                 <button type="button" data-rack-turn="-1" aria-label="Girar a la izquierda" title="Girar a la izquierda">Izquierda</button>
@@ -82,10 +87,34 @@
             <p class="rack-help">Arrastra para girar o selecciona un componente.</p>
             <div class="rack-parts" role="group" aria-label="Componentes del rack">
               <button type="button" data-rack-part="servers" aria-pressed="true">Servidores</button>
-              <button type="button" data-rack-part="network" aria-pressed="false">Redes</button>
-              <button type="button" data-rack-part="power" aria-pressed="false">Respaldo</button>
+              <button type="button" data-rack-part="network" aria-pressed="false">Switch</button>
+              <button type="button" data-rack-part="pdu" aria-pressed="false">PDU</button>
+              <button type="button" data-rack-part="power" aria-pressed="false">UPS</button>
             </div>
             <p class="rack-description" aria-live="polite">Virtualización de servidores, almacenamiento y migración de cargas de trabajo a la nube.</p>
+            <section class="rack-power" id="rack-power-panel" aria-labelledby="rack-power-title" hidden>
+              <h3 id="rack-power-title">Respaldo eléctrico</h3>
+              <ol class="rack-power-path" aria-label="Ruta de alimentación">
+                <li><strong>Red eléctrica</strong><span data-power-grid>Activa</span></li>
+                <li><strong>UPS</strong><span data-power-ups>En línea</span></li>
+                <li><strong>PDU</strong><span data-power-pdu>Distribuyendo</span></li>
+                <li><strong>Equipos</strong><span data-power-rack>Operativos</span></li>
+              </ol>
+              <div class="rack-power-controls" role="group" aria-label="Simulación de un corte">
+                <button class="rack-power-toggle" type="button">Simular corte de energía</button>
+                <button class="rack-power-advance" type="button" disabled>Avanzar 5 min</button>
+              </div>
+              <label class="rack-load" for="rack-load">
+                <span>Carga simulada</span><output id="rack-load-value" for="rack-load" aria-live="off">1200 W</output>
+              </label>
+              <input id="rack-load" type="range" min="600" max="1800" step="100" value="1200" aria-describedby="rack-power-note" aria-valuetext="1200 vatios">
+              <dl class="rack-meters">
+                <div><dt>Autonomía restante</dt><dd data-power-runtime>En espera</dd></div>
+                <div><dt>Batería disponible</dt><dd data-power-battery>100 %</dd></div>
+              </dl>
+              <p class="rack-power-note" id="rack-power-note">Simulación didáctica con 360 Wh útiles de batería. Cada corte empieza con la batería cargada.</p>
+              <p class="rack-sr-only" role="status" data-power-announcement></p>
+            </section>
           </section>
         </div>
       </div>
