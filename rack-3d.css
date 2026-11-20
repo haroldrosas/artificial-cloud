@@ -60,12 +60,31 @@
 .rack-close:hover { color: var(--cyan); }
 .rack-stage {
   position: relative;
+  isolation: isolate;
   height: clamp(17.4rem, 45vh, 25rem);
   background:
     radial-gradient(ellipse at 53% 79%, #24758b87 0%, #12425175 24%, #091e2dcc 70%),
     linear-gradient(130deg,#112d40,#071421);
 }
+.rack-stage::before {
+  position: absolute;
+  inset: .65rem;
+  content: "";
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 25%, #a2edfa65 0 1px, transparent 2.2px),
+    radial-gradient(circle at 24% 16%, #65def45c 0 1.3px, transparent 2.4px),
+    radial-gradient(circle at 17% 57%, #65def46b 0 1.4px, transparent 2.6px),
+    radial-gradient(circle at 29% 70%, #a2edfa52 0 .9px, transparent 2px),
+    radial-gradient(circle at 37% 23%, #65def445 0 1px, transparent 2.1px),
+    radial-gradient(circle at 71% 18%, #a2edfa66 0 1.2px, transparent 2.3px),
+    radial-gradient(circle at 79% 36%, #65def454 0 1.5px, transparent 2.7px),
+    radial-gradient(circle at 90% 23%, #65def43c 0 1px, transparent 2.1px),
+    radial-gradient(circle at 85% 60%, #a2edfa57 0 1px, transparent 2.1px),
+    radial-gradient(circle at 72% 76%, #65def446 0 1.1px, transparent 2.3px);
+}
 .rack-stage canvas {
+  position: relative;
   width: 100%;
   height: 100%;
   display: block;
@@ -146,6 +165,14 @@
   color: #deebef;
   font-size: .93rem;
   line-height: 1.45;
+}
+
+@media (min-width: 961px) and (prefers-reduced-motion: no-preference) {
+  .rack-stage::before { animation: rack-particles-arrive 4.2s ease-out; }
+}
+@keyframes rack-particles-arrive {
+  from { opacity: .3; transform: translateY(.4rem); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @media (max-width: 960px) {
