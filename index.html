@@ -14,7 +14,9 @@
   <link rel="stylesheet" href="styles.css">
   <script src="main.js" defer></script>
   <link rel="stylesheet" href="rack-3d.css?v=interior">
-  <script src="rack-3d.js?v=interior" defer></script>
+  <script src="rack-3d.js?v=demos" defer></script>
+  <link rel="stylesheet" href="service-demos.css">
+  <script src="service-demos.js" defer></script>
 </head>
 <body id="inicio">
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -150,9 +152,12 @@
             <div class="card-body">
               <h3>Ciberseguridad</h3>
               <p>Protección de redes, equipos de usuario y activos digitales.</p>
-              <details><summary>Ver alcance</summary>
-                <ul><li>Firewalls de nueva generación, VPN y protección EDR.</li><li>Gestión de accesos y evaluación de vulnerabilidades.</li><li>Consultoría en seguridad de la información basada en ISO/IEC 27001.</li></ul>
-              </details>
+              <div class="service-card-actions">
+                <details><summary>Ver alcance</summary>
+                  <ul><li>Firewalls de nueva generación, VPN y protección EDR.</li><li>Gestión de accesos y evaluación de vulnerabilidades.</li><li>Consultoría en seguridad de la información basada en ISO/IEC 27001.</li></ul>
+                </details>
+                <button class="service-demo-launch" type="button" data-service-demo="cyber" aria-haspopup="dialog" aria-label="Probar demo de Ciberseguridad" hidden>Probar demo</button>
+              </div>
             </div>
           </article>
 
@@ -161,9 +166,12 @@
             <div class="card-body">
               <h3>Infraestructura TI</h3>
               <p>Servidores, almacenamiento, redes empresariales y conectividad entre sedes.</p>
-              <details><summary>Ver alcance</summary>
-                <ul><li>Redes LAN/WAN, switching, routing y Wi-Fi empresarial.</li><li>Cableado estructurado y gabinetes de comunicaciones.</li><li>Integración de servidores y sistemas de almacenamiento.</li></ul>
-              </details>
+              <div class="service-card-actions">
+                <details><summary>Ver alcance</summary>
+                  <ul><li>Redes LAN/WAN, switching, routing y Wi-Fi empresarial.</li><li>Cableado estructurado y gabinetes de comunicaciones.</li><li>Integración de servidores y sistemas de almacenamiento.</li></ul>
+                </details>
+                <button class="service-demo-launch" type="button" data-service-demo="infra" aria-haspopup="dialog" aria-label="Probar demo de Infraestructura TI" hidden>Probar demo</button>
+              </div>
             </div>
           </article>
 
@@ -172,9 +180,12 @@
             <div class="card-body">
               <h3>Data Center y energía</h3>
               <p>Infraestructura crítica para centros de datos y salas técnicas.</p>
-              <details><summary>Ver alcance</summary>
-                <ul><li>Sistemas UPS, baterías y unidades PDU.</li><li>Racks, distribución eléctrica y monitoreo ambiental.</li><li>Climatización de precisión.</li></ul>
-              </details>
+              <div class="service-card-actions">
+                <details><summary>Ver alcance</summary>
+                  <ul><li>Sistemas UPS, baterías y unidades PDU.</li><li>Racks, distribución eléctrica y monitoreo ambiental.</li><li>Climatización de precisión.</li></ul>
+                </details>
+                <button class="service-demo-launch" type="button" data-service-demo="rack" aria-haspopup="dialog" aria-label="Probar demo de Data Center y energía" hidden>Probar demo</button>
+              </div>
             </div>
           </article>
 
@@ -183,9 +194,12 @@
             <div class="card-body">
               <h3>Seguridad electrónica</h3>
               <p>Sistemas de vigilancia, acceso y alerta para instalaciones y espacios públicos.</p>
-              <details><summary>Ver alcance</summary>
-                <ul><li>CCTV IP, gestión de video (VMS) y analítica.</li><li>Control de acceso, detección de intrusión y alarma de incendios.</li><li>Centros de monitoreo y soluciones para ciudades inteligentes.</li></ul>
-              </details>
+              <div class="service-card-actions">
+                <details><summary>Ver alcance</summary>
+                  <ul><li>CCTV IP, gestión de video (VMS) y analítica.</li><li>Control de acceso, detección de intrusión y alarma de incendios.</li><li>Centros de monitoreo y soluciones para ciudades inteligentes.</li></ul>
+                </details>
+                <button class="service-demo-launch" type="button" data-service-demo="cctv" aria-haspopup="dialog" aria-label="Probar demo de Seguridad electrónica" hidden>Probar demo</button>
+              </div>
             </div>
           </article>
 
@@ -194,9 +208,12 @@
             <div class="card-body">
               <h3>Inteligencia artificial y software</h3>
               <p>Aplicaciones empresariales y herramientas para automatizar procesos.</p>
-              <details><summary>Ver alcance</summary>
-                <ul><li>Desarrollo a medida e integración mediante API.</li><li>Automatización, analítica de datos y aplicaciones de IA.</li></ul>
-              </details>
+              <div class="service-card-actions">
+                <details><summary>Ver alcance</summary>
+                  <ul><li>Desarrollo a medida e integración mediante API.</li><li>Automatización, analítica de datos y aplicaciones de IA.</li></ul>
+                </details>
+                <button class="service-demo-launch" type="button" data-service-demo="software" aria-haspopup="dialog" aria-label="Probar demo de Inteligencia artificial y software" hidden>Probar demo</button>
+              </div>
             </div>
           </article>
 
@@ -205,9 +222,12 @@
             <div class="card-body">
               <h3>Telecomunicaciones</h3>
               <p>Conectividad para enlazar sedes, equipos y servicios de comunicación.</p>
-              <details><summary>Ver alcance</summary>
-                <ul><li>Redes ópticas, fibra ADSS y GPON.</li><li>Enlaces inalámbricos punto a punto.</li><li>Redes de datos, comunicaciones IP e integración de equipos.</li></ul>
-              </details>
+              <div class="service-card-actions">
+                <details><summary>Ver alcance</summary>
+                  <ul><li>Redes ópticas, fibra ADSS y GPON.</li><li>Enlaces inalámbricos punto a punto.</li><li>Redes de datos, comunicaciones IP e integración de equipos.</li></ul>
+                </details>
+                <button class="service-demo-launch" type="button" data-service-demo="fiber" aria-haspopup="dialog" aria-label="Probar demo de Telecomunicaciones" hidden>Probar demo</button>
+              </div>
             </div>
           </article>
         </div>
@@ -297,6 +317,17 @@
       </div>
     </section>
   </main>
+
+  <dialog class="service-demo" id="service-demo" aria-labelledby="service-demo-title">
+    <header class="service-demo-header">
+      <div>
+        <p class="service-demo-category" data-demo-category></p>
+        <h2 id="service-demo-title" tabindex="-1" autofocus></h2>
+      </div>
+      <button class="service-demo-close" type="button">Cerrar</button>
+    </header>
+    <div class="service-demo-body" data-demo-body></div>
+  </dialog>
 
   <footer class="site-footer">
     <div class="shell footer-inner">

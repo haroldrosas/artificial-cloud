@@ -38,6 +38,7 @@
   let drag;
   let frameId = 0;
   let open = false;
+  let serviceView;
   let exploded = false;
   let spread = 0;
   let spreadTransition;
@@ -529,7 +530,7 @@
     requestRender();
   }
 
-  function showRack(focusViewer) {
+  function showRack(focusViewer, explainFailure = focusViewer) {
     if (open) return;
     try {
       renderer ??= createRenderer();
@@ -539,10 +540,10 @@
     }
     if (!renderer) {
       launch.hidden = true;
-      if (focusViewer) {
+      if (explainFailure) {
         status.textContent = 'El navegador no pudo mostrar el rack 3D. Puedes consultar los servicios de infraestructura en esta página.';
-        experience.querySelector('.rack-status').setAttribute('tabindex','-1');
-        status.focus({preventScroll:true});
+        status.setAttribute('tabindex','-1');
+        if (focusViewer) status.focus({preventScroll:true});
       } else {
         experience.hidden = true;
       }
@@ -561,13 +562,13 @@
     }
   }
 
-  function hideRack() {
+  function hideRack(focusLaunch = true) {
     stopTour();
     open = false;
     viewer.hidden = true;
     launch.hidden = false;
     hero.classList.remove('rack-open');
-    launch.focus({preventScroll:true});
+    if (focusLaunch) launch.focus({preventScroll:true});
   }
 
   for (const button of selectors) {
@@ -642,7 +643,24 @@
     status.textContent = '';
   });
   launch.addEventListener('click', () => showRack(true));
-  close.addEventListener('click', hideRack);
+  close.addEventListener('click', () => hideRack());
+  experience.addEventListener('rack-service-open', () => {
+    serviceView = {open, exploded, hidden: experience.hidden};
+    experience.hidden = false;
+    showRack(false, true);
+    if (open && !exploded) setExploded(true);
+    hero.classList.remove('rack-open');
+    requestRender();
+  });
+  experience.addEventListener('rack-service-close', () => {
+    stopTour();
+    if (open && !serviceView.exploded) setExploded(false);
+    if (open && !serviceView.open) hideRack(false);
+    experience.hidden = serviceView.hidden;
+    hero.classList.toggle('rack-open', open);
+    serviceView = undefined;
+    requestRender();
+  });
   if (typeof ResizeObserver === 'function') new ResizeObserver(requestRender).observe(stage);
   else window.addEventListener('resize', requestRender);
   experience.hidden = false;
