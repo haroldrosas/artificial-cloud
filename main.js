@@ -41,41 +41,59 @@ document.addEventListener('keydown', (event) => {
 narrowScreen.addEventListener('change', syncNavigation);
 syncNavigation();
 
-const hero = document.querySelector('.hero');
-const heroScene = hero?.querySelector('.hero-scene');
-const heroMotion = window.matchMedia('(prefers-reduced-motion: no-preference) and (min-height: 501px)');
-let heroFrame = 0;
-let lastHeroProgress = -1;
+const heroVideo = document.querySelector('.hero-video');
+if (heroVideo) {
+  const control = document.querySelector('.hero-video-control');
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const connection = navigator.connection;
+  let onscreen = typeof IntersectionObserver !== 'function';
+  let userPaused = false;
 
-function updateHeroProgress() {
-  heroFrame = 0;
-  if (hero.classList.contains('rack-open')) return;
-  const travel = hero.offsetHeight - heroScene.offsetHeight;
-  if (travel <= 0) return;
-  const progress = Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / travel));
-  if (progress === lastHeroProgress) return;
-  const eased = progress * progress * (3 - 2 * progress);
-  heroScene.style.setProperty('--hero-progress', eased.toFixed(4));
-  lastHeroProgress = progress;
-}
-
-function scheduleHeroProgress() {
-  if (heroMotion.matches && !heroFrame) heroFrame = requestAnimationFrame(updateHeroProgress);
-}
-
-function syncHeroMotion() {
-  hero.classList.toggle('hero-immersive', heroMotion.matches);
-  if (heroMotion.matches) scheduleHeroProgress();
-  else {
-    cancelAnimationFrame(heroFrame);
-    heroFrame = 0;
+  function syncHeroVideo() {
+    if (motion.matches || connection?.saveData) {
+      heroVideo.pause();
+      heroVideo.classList.remove('has-frame');
+      control.hidden = true;
+      return;
+    }
+    if (!onscreen || document.hidden || userPaused) {
+      heroVideo.pause();
+      return;
+    }
+    if (!heroVideo.getAttribute('src')) heroVideo.src = heroVideo.dataset.src;
+    heroVideo.play().catch(error => {
+      if (error.name !== 'NotAllowedError' || motion.matches || connection?.saveData) return;
+      control.textContent = 'Reproducir video';
+      control.hidden = false;
+    });
   }
-}
 
-if (heroScene) {
-  heroMotion.addEventListener('change', syncHeroMotion);
-  window.addEventListener('resize', scheduleHeroProgress);
-  window.addEventListener('scroll', scheduleHeroProgress, {passive: true});
-  new MutationObserver(scheduleHeroProgress).observe(hero, {attributeFilter: ['class']});
-  syncHeroMotion();
+  heroVideo.addEventListener('playing', () => {
+    heroVideo.classList.add('has-frame');
+    control.textContent = 'Pausar video';
+    control.hidden = false;
+  });
+  heroVideo.addEventListener('pause', () => {
+    control.textContent = 'Reproducir video';
+  });
+  heroVideo.addEventListener('error', () => {
+    heroVideo.classList.remove('has-frame');
+    control.hidden = true;
+  });
+  control.addEventListener('click', () => {
+    userPaused = !heroVideo.paused;
+    syncHeroVideo();
+  });
+
+  if (typeof IntersectionObserver === 'function') {
+    const observer = new IntersectionObserver(([entry]) => {
+      onscreen = entry.intersectionRatio >= .18;
+      syncHeroVideo();
+    }, {threshold: .18});
+    observer.observe(heroVideo.closest('.hero'));
+  }
+  document.addEventListener('visibilitychange', syncHeroVideo);
+  motion.addEventListener('change', syncHeroVideo);
+  connection?.addEventListener?.('change', syncHeroVideo);
+  syncHeroVideo();
 }

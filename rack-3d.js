@@ -20,7 +20,6 @@
   const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
   const status = experience.querySelector('.rack-status');
   const description = experience.querySelector('.rack-description');
-  const hero = experience.closest('.hero');
   const pins = [...stage.querySelectorAll('.rack-pin')];
   const selectors = [...experience.querySelectorAll('[data-rack-part]')];
   const parts = {
@@ -554,7 +553,6 @@
     cpuCanvas.hidden = renderer.canvas !== cpuCanvas;
     viewer.hidden = false;
     launch.hidden = true;
-    hero.classList.add('rack-open');
     requestRender();
     if (focusViewer) {
       viewer.setAttribute('tabindex','-1');
@@ -567,7 +565,6 @@
     open = false;
     viewer.hidden = true;
     launch.hidden = false;
-    hero.classList.remove('rack-open');
     if (focusLaunch) launch.focus();
   }
 
@@ -630,7 +627,6 @@
     open = false;
     viewer.hidden = true;
     launch.hidden = true;
-    hero.classList.remove('rack-open');
     status.textContent = 'Se perdió la vista 3D. La portada en foto sigue disponible.';
     if (insideViewer) {
       status.setAttribute('tabindex','-1');
@@ -643,13 +639,18 @@
     status.textContent = '';
   });
   launch.addEventListener('click', () => showRack(true));
+  for (const entry of document.querySelectorAll('[data-rack-entry]')) {
+    entry.addEventListener('click', event => {
+      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+      showRack(false, true);
+    });
+  }
   close.addEventListener('click', () => hideRack());
   experience.addEventListener('rack-service-open', () => {
     serviceView = {open, exploded, hidden: experience.hidden};
     experience.hidden = false;
     showRack(false, true);
     if (open && !exploded) setExploded(true);
-    hero.classList.remove('rack-open');
     requestRender();
   });
   experience.addEventListener('rack-service-close', () => {
@@ -657,13 +658,12 @@
     if (open && !serviceView.exploded) setExploded(false);
     if (open && !serviceView.open) hideRack(false);
     experience.hidden = serviceView.hidden;
-    hero.classList.toggle('rack-open', open);
     serviceView = undefined;
     requestRender();
   });
   if (typeof ResizeObserver === 'function') new ResizeObserver(requestRender).observe(stage);
   else window.addEventListener('resize', requestRender);
-  experience.hidden = false;
+  launch.hidden = false;
   selectPart(current);
   updatePower();
 })();
