@@ -568,7 +568,7 @@
     viewer.hidden = true;
     launch.hidden = false;
     hero.classList.remove('rack-open');
-    if (focusLaunch) launch.focus({preventScroll:true});
+    if (focusLaunch) launch.focus();
   }
 
   for (const button of selectors) {
@@ -666,6 +666,4 @@
   experience.hidden = false;
   selectPart(current);
   updatePower();
-  const desktop = window.matchMedia('(min-width: 961px) and (pointer: fine)').matches;
-  if (desktop && !motionPreference.matches && !navigator.connection?.saveData) showRack(false);
 })();

@@ -11,10 +11,10 @@
   <title>ARTIFICIAL CLOUD | Ingeniería y tecnología integral</title>
   <link rel="icon" href="assets/icono.png" type="image/png">
   <link rel="preload" href="assets/centro-de-datos.webp" as="image">
-  <link rel="stylesheet" href="styles.css">
-  <script src="main.js" defer></script>
-  <link rel="stylesheet" href="rack-3d.css?v=interior">
-  <script src="rack-3d.js?v=demos" defer></script>
+  <link rel="stylesheet" href="styles.css?v=portada">
+  <script src="main.js?v=portada" defer></script>
+  <link rel="stylesheet" href="rack-3d.css?v=contrast">
+  <script src="rack-3d.js?v=portada" defer></script>
   <link rel="stylesheet" href="service-demos.css">
   <script src="service-demos.js" defer></script>
 </head>
@@ -44,80 +44,82 @@
 
   <main id="contenido" tabindex="-1">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-visual" aria-hidden="true">
-        <img src="assets/centro-de-datos.webp" alt="" width="992" height="941" fetchpriority="high">
-      </div>
-      <div class="shell hero-inner">
-        <div class="hero-content">
-          <p class="overline"><span></span> CLOUD COMPUTING E INFRAESTRUCTURA TI</p>
-          <h1 id="hero-title">Ingeniería y <span>tecnología integral</span></h1>
-          <p class="hero-copy">Diseñamos e integramos soluciones de nube, ciberseguridad e infraestructura TI para empresas y entidades públicas.</p>
-          <div class="actions">
-            <a class="button button-primary" href="#servicios">Explorar servicios</a>
-            <a class="button button-ghost" href="assets/ARTIFICIAL_CLOUD_Brochure.pdf" download>
-              <span class="download-icon" aria-hidden="true"></span> Descargar brochure
-            </a>
-          </div>
+      <div class="hero-scene">
+        <div class="hero-visual" aria-hidden="true">
+          <img src="assets/centro-de-datos.webp" alt="" width="992" height="941" fetchpriority="high">
         </div>
-        <div class="rack-experience" data-rack-experience hidden>
-          <button class="button button-ghost rack-launch" type="button" aria-controls="rack-viewer">Explorar rack 3D</button>
-          <p class="rack-status" role="status"></p>
-          <section id="rack-viewer" class="rack-viewer" aria-labelledby="rack-title" hidden>
-            <div class="rack-topline">
-              <h2 id="rack-title">Rack de centro de datos <span>3D</span></h2>
-              <button type="button" class="rack-close">Ver foto</button>
+        <div class="shell hero-inner">
+          <div class="hero-content">
+            <p class="overline"><span></span> CLOUD COMPUTING E INFRAESTRUCTURA TI</p>
+            <h1 id="hero-title">Ingeniería y <span>tecnología integral</span></h1>
+            <p class="hero-copy">Diseñamos e integramos soluciones de nube, ciberseguridad e infraestructura TI para empresas y entidades públicas.</p>
+            <div class="actions">
+              <a class="button button-primary" href="#servicios">Explorar servicios</a>
+              <a class="button button-ghost" href="assets/ARTIFICIAL_CLOUD_Brochure.pdf" download>
+                <span class="download-icon" aria-hidden="true"></span> Descargar brochure
+              </a>
             </div>
-            <div class="rack-toolbar">
-              <button type="button" class="rack-explore" aria-pressed="false" aria-controls="rack-power-panel">Explorar por dentro</button>
-              <button type="button" class="rack-tour" hidden>Iniciar recorrido</button>
-            </div>
-            <div class="rack-stage">
-              <canvas class="rack-gpu" aria-hidden="true"></canvas>
-              <canvas class="rack-cpu" aria-hidden="true" hidden></canvas>
-              <div class="rack-pins">
-                <button type="button" class="rack-pin" data-rack-part="servers" aria-pressed="true" aria-label="Explorar servidores" title="Servidores" hidden>1</button>
-                <button type="button" class="rack-pin" data-rack-part="network" aria-pressed="false" aria-label="Explorar switch" title="Switch" hidden>2</button>
-                <button type="button" class="rack-pin" data-rack-part="power" aria-pressed="false" aria-label="Explorar UPS" title="UPS" hidden>3</button>
-                <button type="button" class="rack-pin" data-rack-part="pdu" aria-pressed="false" aria-label="Explorar PDU" title="PDU" hidden>4</button>
+          </div>
+          <div class="rack-experience" data-rack-experience hidden>
+            <button class="button rack-launch" type="button" aria-controls="rack-viewer">Explorar rack 3D</button>
+            <p class="rack-status" role="status"></p>
+            <section id="rack-viewer" class="rack-viewer" aria-labelledby="rack-title" hidden>
+              <div class="rack-topline">
+                <h2 id="rack-title">Rack de centro de datos <span>3D</span></h2>
+                <button type="button" class="rack-close">Ver foto</button>
               </div>
-              <div class="rack-controls" role="group" aria-label="Girar el modelo">
-                <button type="button" data-rack-turn="-1" aria-label="Girar a la izquierda" title="Girar a la izquierda">Izquierda</button>
-                <button type="button" data-rack-reset>Restablecer</button>
-                <button type="button" data-rack-turn="1" aria-label="Girar a la derecha" title="Girar a la derecha">Derecha</button>
+              <div class="rack-toolbar">
+                <button type="button" class="rack-explore" aria-pressed="false" aria-controls="rack-power-panel">Explorar por dentro</button>
+                <button type="button" class="rack-tour" hidden>Iniciar recorrido</button>
               </div>
-            </div>
-            <p class="rack-help">Arrastra para girar o selecciona un componente.</p>
-            <div class="rack-parts" role="group" aria-label="Componentes del rack">
-              <button type="button" data-rack-part="servers" aria-pressed="true">Servidores</button>
-              <button type="button" data-rack-part="network" aria-pressed="false">Switch</button>
-              <button type="button" data-rack-part="pdu" aria-pressed="false">PDU</button>
-              <button type="button" data-rack-part="power" aria-pressed="false">UPS</button>
-            </div>
-            <p class="rack-description" aria-live="polite">Virtualización de servidores, almacenamiento y migración de cargas de trabajo a la nube.</p>
-            <section class="rack-power" id="rack-power-panel" aria-labelledby="rack-power-title" hidden>
-              <h3 id="rack-power-title">Respaldo eléctrico</h3>
-              <ol class="rack-power-path" aria-label="Ruta de alimentación">
-                <li><strong>Red eléctrica</strong><span data-power-grid>Activa</span></li>
-                <li><strong>UPS</strong><span data-power-ups>En línea</span></li>
-                <li><strong>PDU</strong><span data-power-pdu>Distribuyendo</span></li>
-                <li><strong>Equipos</strong><span data-power-rack>Operativos</span></li>
-              </ol>
-              <div class="rack-power-controls" role="group" aria-label="Simulación de un corte">
-                <button class="rack-power-toggle" type="button">Simular corte de energía</button>
-                <button class="rack-power-advance" type="button" disabled>Avanzar 5 min</button>
+              <div class="rack-stage">
+                <canvas class="rack-gpu" aria-hidden="true"></canvas>
+                <canvas class="rack-cpu" aria-hidden="true" hidden></canvas>
+                <div class="rack-pins">
+                  <button type="button" class="rack-pin" data-rack-part="servers" aria-pressed="true" aria-label="Explorar servidores" title="Servidores" hidden>1</button>
+                  <button type="button" class="rack-pin" data-rack-part="network" aria-pressed="false" aria-label="Explorar switch" title="Switch" hidden>2</button>
+                  <button type="button" class="rack-pin" data-rack-part="power" aria-pressed="false" aria-label="Explorar UPS" title="UPS" hidden>3</button>
+                  <button type="button" class="rack-pin" data-rack-part="pdu" aria-pressed="false" aria-label="Explorar PDU" title="PDU" hidden>4</button>
+                </div>
+                <div class="rack-controls" role="group" aria-label="Girar el modelo">
+                  <button type="button" data-rack-turn="-1" aria-label="Girar a la izquierda" title="Girar a la izquierda">Izquierda</button>
+                  <button type="button" data-rack-reset>Restablecer</button>
+                  <button type="button" data-rack-turn="1" aria-label="Girar a la derecha" title="Girar a la derecha">Derecha</button>
+                </div>
               </div>
-              <label class="rack-load" for="rack-load">
-                <span>Carga simulada</span><output id="rack-load-value" for="rack-load" aria-live="off">1200 W</output>
-              </label>
-              <input id="rack-load" type="range" min="600" max="1800" step="100" value="1200" aria-describedby="rack-power-note" aria-valuetext="1200 vatios">
-              <dl class="rack-meters">
-                <div><dt>Autonomía restante</dt><dd data-power-runtime>En espera</dd></div>
-                <div><dt>Batería disponible</dt><dd data-power-battery>100 %</dd></div>
-              </dl>
-              <p class="rack-power-note" id="rack-power-note">Simulación didáctica con 360 Wh útiles de batería. Cada corte empieza con la batería cargada.</p>
-              <p class="rack-sr-only" role="status" data-power-announcement></p>
+              <p class="rack-help">Arrastra para girar o selecciona un componente.</p>
+              <div class="rack-parts" role="group" aria-label="Componentes del rack">
+                <button type="button" data-rack-part="servers" aria-pressed="true">Servidores</button>
+                <button type="button" data-rack-part="network" aria-pressed="false">Switch</button>
+                <button type="button" data-rack-part="pdu" aria-pressed="false">PDU</button>
+                <button type="button" data-rack-part="power" aria-pressed="false">UPS</button>
+              </div>
+              <p class="rack-description" aria-live="polite">Virtualización de servidores, almacenamiento y migración de cargas de trabajo a la nube.</p>
+              <section class="rack-power" id="rack-power-panel" aria-labelledby="rack-power-title" hidden>
+                <h3 id="rack-power-title">Respaldo eléctrico</h3>
+                <ol class="rack-power-path" aria-label="Ruta de alimentación">
+                  <li><strong>Red eléctrica</strong><span data-power-grid>Activa</span></li>
+                  <li><strong>UPS</strong><span data-power-ups>En línea</span></li>
+                  <li><strong>PDU</strong><span data-power-pdu>Distribuyendo</span></li>
+                  <li><strong>Equipos</strong><span data-power-rack>Operativos</span></li>
+                </ol>
+                <div class="rack-power-controls" role="group" aria-label="Simulación de un corte">
+                  <button class="rack-power-toggle" type="button">Simular corte de energía</button>
+                  <button class="rack-power-advance" type="button" disabled>Avanzar 5 min</button>
+                </div>
+                <label class="rack-load" for="rack-load">
+                  <span>Carga simulada</span><output id="rack-load-value" for="rack-load" aria-live="off">1200 W</output>
+                </label>
+                <input id="rack-load" type="range" min="600" max="1800" step="100" value="1200" aria-describedby="rack-power-note" aria-valuetext="1200 vatios">
+                <dl class="rack-meters">
+                  <div><dt>Autonomía restante</dt><dd data-power-runtime>En espera</dd></div>
+                  <div><dt>Batería disponible</dt><dd data-power-battery>100 %</dd></div>
+                </dl>
+                <p class="rack-power-note" id="rack-power-note">Simulación didáctica con 360 Wh útiles de batería. Cada corte empieza con la batería cargada.</p>
+                <p class="rack-sr-only" role="status" data-power-announcement></p>
+              </section>
             </section>
-          </section>
+          </div>
         </div>
       </div>
     </section>

@@ -40,3 +40,42 @@ document.addEventListener('keydown', (event) => {
 
 narrowScreen.addEventListener('change', syncNavigation);
 syncNavigation();
+
+const hero = document.querySelector('.hero');
+const heroScene = hero?.querySelector('.hero-scene');
+const heroMotion = window.matchMedia('(prefers-reduced-motion: no-preference) and (min-height: 501px)');
+let heroFrame = 0;
+let lastHeroProgress = -1;
+
+function updateHeroProgress() {
+  heroFrame = 0;
+  if (hero.classList.contains('rack-open')) return;
+  const travel = hero.offsetHeight - heroScene.offsetHeight;
+  if (travel <= 0) return;
+  const progress = Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / travel));
+  if (progress === lastHeroProgress) return;
+  const eased = progress * progress * (3 - 2 * progress);
+  heroScene.style.setProperty('--hero-progress', eased.toFixed(4));
+  lastHeroProgress = progress;
+}
+
+function scheduleHeroProgress() {
+  if (heroMotion.matches && !heroFrame) heroFrame = requestAnimationFrame(updateHeroProgress);
+}
+
+function syncHeroMotion() {
+  hero.classList.toggle('hero-immersive', heroMotion.matches);
+  if (heroMotion.matches) scheduleHeroProgress();
+  else {
+    cancelAnimationFrame(heroFrame);
+    heroFrame = 0;
+  }
+}
+
+if (heroScene) {
+  heroMotion.addEventListener('change', syncHeroMotion);
+  window.addEventListener('resize', scheduleHeroProgress);
+  window.addEventListener('scroll', scheduleHeroProgress, {passive: true});
+  new MutationObserver(scheduleHeroProgress).observe(hero, {attributeFilter: ['class']});
+  syncHeroMotion();
+}

@@ -398,3 +398,50 @@ details li + li { margin-top: .45rem; }
   :root { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; }
 }
+
+.hero-scene {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.hero-immersive:not(.rack-open) {
+  --hero-travel: clamp(10rem, 32svh, 17rem);
+  --hero-zoom-amount: .46;
+  overflow: visible;
+}
+.hero-immersive:not(.rack-open)::after {
+  content: "";
+  display: block;
+  height: var(--hero-travel);
+}
+.hero-immersive:not(.rack-open) .hero-scene {
+  position: sticky;
+  top: 0;
+}
+.hero-immersive:not(.rack-open) .hero-inner {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+.hero-immersive:not(.rack-open) .hero-visual { overflow: hidden; }
+.hero-immersive:not(.rack-open) .hero-visual img {
+  transform-origin: 74% 50%;
+  transform: translateX(calc(-1.6% * var(--hero-progress, 0)))
+    scale(calc(1 + var(--hero-zoom-amount) * var(--hero-progress, 0)));
+}
+@media (min-width: 961px) {
+  .hero-immersive:not(.rack-open) .rack-experience {
+    margin-right: clamp(.5rem, 5.5vw, 6rem);
+  }
+}
+@media (max-width: 820px) {
+  .hero-immersive:not(.rack-open) {
+    --hero-travel: clamp(6.5rem, 24svh, 10rem);
+    --hero-zoom-amount: .34;
+  }
+  .hero-immersive:not(.rack-open) .hero-inner {
+    padding-block: 3rem 2.8rem;
+  }
+}
+@media (max-width: 560px) {
+  .hero-immersive:not(.rack-open) .hero-visual img { transform-origin: 78% 48%; }
+}
