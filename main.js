@@ -1,6 +1,6 @@
 const menuButton = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('.site-nav');
-const narrowScreen = window.matchMedia('(max-width: 920px)');
+const narrowScreen = window.matchMedia('(max-width: 820px)');
 
 function setMenu(open) {
   const expanded = narrowScreen.matches && open;

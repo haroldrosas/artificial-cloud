@@ -29,8 +29,7 @@
     const key = button.dataset.serviceDemo;
     const request = {button,key};
     active = request;
-    category.textContent = button.dataset.demoLabel
-      ?? button.closest('.service-card').querySelector('h3').textContent;
+    category.textContent = button.closest('.service-card').querySelector('h3').textContent;
     title.textContent = captions[key];
     body.textContent = key === 'rack' ? '' : 'Cargando simulación…';
     dialog.showModal();

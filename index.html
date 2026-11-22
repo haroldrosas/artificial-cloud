@@ -11,12 +11,12 @@
   <title>ARTIFICIAL CLOUD | Ingeniería y tecnología integral</title>
   <link rel="icon" href="assets/icono.png" type="image/png">
   <link rel="preload" href="assets/pasillo-centro-de-datos.webp" as="image">
-  <link rel="stylesheet" href="styles.css?v=sectores-y-marcas">
-  <script src="main.js?v=sector-publico" defer></script>
+  <link rel="stylesheet" href="styles.css?v=recorrido">
+  <script src="main.js?v=recorrido" defer></script>
   <link rel="stylesheet" href="rack-3d.css?v=recorrido">
   <script src="rack-3d.js?v=recorrido" defer></script>
   <link rel="stylesheet" href="service-demos.css">
-  <script src="service-demos.js?v=sector-publico" defer></script>
+  <script src="service-demos.js" defer></script>
 </head>
 <body id="inicio">
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -32,9 +32,9 @@
       </button>
       <nav class="site-nav" id="navegacion" aria-label="Navegación principal">
         <a href="#servicios">Servicios</a>
-        <a href="#sector-publico">Sector público</a>
         <a href="#nosotros">Nosotros</a>
         <a href="#metodologia">Metodología</a>
+        <a href="#sectores">Sectores</a>
         <a class="button button-nav" href="assets/ARTIFICIAL_CLOUD_Brochure.pdf" download>
           <span class="download-icon" aria-hidden="true"></span> Brochure PDF
         </a>
@@ -247,184 +247,31 @@
             </div>
           </article>
         </div>
-      </div>
-    </section>
 
-    <section class="section sectors" id="sectores" aria-labelledby="sectors-title">
-      <div class="shell">
-        <h2 id="sectors-title">Sectores que atendemos</h2>
-
-        <section class="sector-group" id="sector-publico" aria-labelledby="public-sector-title">
-          <h3 id="public-sector-title">Sector público</h3>
-          <p>Integramos infraestructura tecnológica según los requerimientos de cada entidad.</p>
-
-          <div class="public-sector-grid">
-            <article class="public-sector-card public-sector-feature" aria-labelledby="public-municipal-title">
-              <h4 id="public-municipal-title">Municipalidades y gobiernos regionales</h4>
-              <p>Videovigilancia para seguridad ciudadana, centros de monitoreo y conectividad entre sedes.</p>
-              <button class="button button-primary" type="button" data-service-demo="cctv" data-demo-label="Seguridad ciudadana" aria-haspopup="dialog" hidden>Simulador de videovigilancia</button>
+        <section class="technology" id="plataformas" aria-labelledby="technology-title">
+          <div class="section-intro">
+            <h2 id="technology-title">Plataformas y fabricantes</h2>
+            <p>Al elegir la nube y el equipamiento de cada proyecto, consideramos la compatibilidad, los requisitos de operación y el presupuesto.</p>
+          </div>
+          <div class="technology-layout">
+            <article class="technology-cloud" aria-labelledby="technology-cloud-title">
+              <h3 id="technology-cloud-title">Nube pública</h3>
+              <p class="technology-featured">Amazon Web Services (AWS)</p>
+              <ul class="technology-alternatives" aria-label="Otras plataformas de nube">
+                <li>Microsoft Azure</li>
+                <li>Google Cloud</li>
+              </ul>
             </article>
-            <article class="public-sector-card" aria-labelledby="public-health-title">
-              <h4 id="public-health-title">Hospitales y establecimientos de salud</h4>
-              <p>Redes para sistemas hospitalarios, almacenamiento de datos y respaldo eléctrico para infraestructura TI.</p>
-            </article>
-            <article class="public-sector-card" aria-labelledby="public-penitentiary-title">
-              <h4 id="public-penitentiary-title">Establecimientos penitenciarios</h4>
-              <p>Videovigilancia, control de accesos y comunicaciones internas para la operación de la sede.</p>
-            </article>
-            <article class="public-sector-card" aria-labelledby="public-agency-title">
-              <h4 id="public-agency-title">Ministerios y otras entidades públicas</h4>
-              <p>Nube, servidores, ciberseguridad y copias de respaldo para plataformas y sistemas institucionales.</p>
-            </article>
-            <article class="public-sector-card" aria-labelledby="public-building-title">
-              <h4 id="public-building-title">Edificaciones públicas</h4>
-              <p>Cableado estructurado, Wi-Fi institucional, control de accesos y respaldo eléctrico para equipos tecnológicos.</p>
+            <article class="technology-equipment" aria-labelledby="technology-equipment-title">
+              <h3 id="technology-equipment-title">Equipos y sistemas</h3>
+              <dl>
+                <div><dt>Equipos de cómputo</dt><dd>HP, Lenovo y Dell</dd></div>
+                <div><dt>Redes empresariales</dt><dd>Cisco, Huawei y Juniper</dd></div>
+                <div><dt>Videovigilancia</dt><dd>Hikvision, Dahua y Uniview</dd></div>
+              </dl>
             </article>
           </div>
-
-          <div class="procurement">
-            <div>
-              <h4>Licitaciones y contrataciones públicas</h4>
-              <p>Según el alcance del proyecto, preparamos la documentación técnica, los protocolos de prueba y el plan de puesta en marcha.</p>
-            </div>
-            <a class="button button-primary" href="assets/ARTIFICIAL_CLOUD_Brochure.pdf" download>
-              <span class="download-icon" aria-hidden="true"></span> Descargar brochure
-            </a>
-          </div>
         </section>
-
-        <section class="sector-group private-sector" id="sector-privado" aria-labelledby="private-sector-title">
-          <h3 id="private-sector-title">Sector privado</h3>
-          <dl class="private-sector-list">
-            <div>
-              <dt>Empresas e industria</dt>
-              <dd>Redes, automatización y respaldo para procesos de operación y producción.</dd>
-            </div>
-            <div>
-              <dt>Clínicas privadas</dt>
-              <dd>Conectividad y almacenamiento para aplicaciones clínicas y administrativas.</dd>
-            </div>
-            <div>
-              <dt>Instituciones educativas privadas</dt>
-              <dd>Wi-Fi para campus, cableado y plataformas digitales.</dd>
-            </div>
-            <div>
-              <dt>Operadores de telecomunicaciones</dt>
-              <dd>Redes de fibra óptica, enlaces y equipamiento de acceso.</dd>
-            </div>
-          </dl>
-        </section>
-      </div>
-    </section>
-
-    <section class="section technology" id="plataformas" aria-labelledby="technology-title">
-      <div class="shell">
-        <div class="section-intro">
-          <h2 id="technology-title">Plataformas y fabricantes</h2>
-          <p>Estas son opciones de referencia. La selección depende de la compatibilidad, los requisitos y el presupuesto de cada proyecto.</p>
-        </div>
-        <div class="technology-grid">
-          <article class="technology-category technology-cloud" aria-labelledby="technology-cloud-title">
-            <div>
-              <h3 id="technology-cloud-title">Nube</h3>
-              <p>Migración, operación en nube y recuperación ante desastres.</p>
-            </div>
-            <ul class="technology-brands" aria-label="Marcas de nube">
-              <li class="technology-brand-featured">
-                <img src="assets/marcas/aws.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
-                <span>Amazon Web Services (AWS)</span>
-              </li>
-              <li>
-                <img src="assets/marcas/azure.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
-                <span>Microsoft Azure</span>
-              </li>
-              <li>
-                <img src="assets/marcas/google-cloud.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
-                <span>Google Cloud</span>
-              </li>
-            </ul>
-          </article>
-          <article class="technology-category" aria-labelledby="technology-security-title">
-            <div>
-              <h3 id="technology-security-title">Ciberseguridad y firewalls</h3>
-              <p>Firewalls, VPN y segmentación de redes.</p>
-            </div>
-            <ul class="technology-brands" aria-label="Marcas de ciberseguridad y firewalls">
-              <li>
-                <img src="assets/marcas/fortinet.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
-                <span>Fortinet</span>
-              </li>
-              <li>
-                <img src="assets/marcas/palo-alto-networks.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
-                <span>Palo Alto Networks</span>
-              </li>
-              <li>
-                <img src="assets/marcas/check-point.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
-                <span>Check Point</span>
-              </li>
-            </ul>
-          </article>
-          <article class="technology-category" aria-labelledby="technology-networks-title">
-            <div>
-              <h3 id="technology-networks-title">Redes empresariales</h3>
-              <p>Switching, routing y redes inalámbricas.</p>
-            </div>
-            <ul class="technology-brands" aria-label="Marcas de redes empresariales">
-              <li>
-                <img src="assets/marcas/cisco.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
-                <span>Cisco</span>
-              </li>
-              <li>
-                <img src="assets/marcas/huawei.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
-                <span>Huawei</span>
-              </li>
-              <li>
-                <img src="assets/marcas/juniper.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
-                <span>Juniper Networks</span>
-              </li>
-            </ul>
-          </article>
-          <article class="technology-category" aria-labelledby="technology-compute-title">
-            <div>
-              <h3 id="technology-compute-title">Servidores y almacenamiento</h3>
-              <p>Cómputo, virtualización y almacenamiento de datos.</p>
-            </div>
-            <ul class="technology-brands" aria-label="Marcas de servidores y almacenamiento">
-              <li>
-                <img src="assets/marcas/hpe.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
-                <span>HPE</span>
-              </li>
-              <li>
-                <img src="assets/marcas/dell.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
-                <span>Dell Technologies</span>
-              </li>
-              <li>
-                <img src="assets/marcas/lenovo.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
-                <span>Lenovo</span>
-              </li>
-            </ul>
-          </article>
-          <article class="technology-category" aria-labelledby="technology-video-title">
-            <div>
-              <h3 id="technology-video-title">Videovigilancia</h3>
-              <p>Cámaras IP, grabación y gestión de video.</p>
-            </div>
-            <ul class="technology-brands" aria-label="Marcas de videovigilancia">
-              <li>
-                <img src="assets/marcas/hikvision.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
-                <span>Hikvision</span>
-              </li>
-              <li>
-                <img src="assets/marcas/dahua.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
-                <span>Dahua</span>
-              </li>
-              <li>
-                <img src="assets/marcas/uniview.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
-                <span>Uniview</span>
-              </li>
-            </ul>
-          </article>
-        </div>
       </div>
     </section>
 
@@ -454,6 +301,23 @@
           <li><div class="step-marker" aria-hidden="true">5</div><h3>Soporte y continuidad</h3><p>Brindamos asistencia y mantenimiento según el alcance del proyecto.</p></li>
         </ol>
         <p class="method-standard">Tomamos como referencia ISO/IEC 27001 en los proyectos que incluyen requisitos de seguridad de la información.</p>
+      </div>
+    </section>
+
+    <section class="section sectors" id="sectores" aria-labelledby="sectors-title">
+      <div class="shell sectors-inner">
+        <div>
+          <h2 id="sectors-title">Sectores público y privado</h2>
+          <p>Adaptamos el alcance y la tecnología al entorno de cada organización.</p>
+        </div>
+        <dl class="sector-list">
+          <div><dt>Gestión pública</dt><dd>Modernización de servicios e infraestructura institucional.</dd></div>
+          <div><dt>Empresas e industria</dt><dd>Redes y automatización para ampliar capacidad y reducir tiempos de inactividad.</dd></div>
+          <div><dt>Salud</dt><dd>Redes, respaldo e infraestructura para entornos asistenciales.</dd></div>
+          <div><dt>Educación</dt><dd>Conectividad de campus y plataformas digitales.</dd></div>
+          <div><dt>Seguridad ciudadana</dt><dd>Videovigilancia, comunicaciones y centros de monitoreo.</dd></div>
+          <div><dt>Telecomunicaciones</dt><dd>Redes ópticas, enlaces e integración de equipos.</dd></div>
+        </dl>
       </div>
     </section>
 
