@@ -241,7 +241,7 @@ h2 {
   overflow: hidden;
 }
 .cloud-body { padding: clamp(1.6rem, 3.5vw, 3rem); }
-.cloud-body h3 { margin-top: .75rem; font-size: clamp(1.9rem, 3.65vw, 2.9rem); line-height: 1.06; letter-spacing: -.05em; max-width: 29rem; }
+.cloud-body h4 { margin-top: .75rem; font-size: clamp(1.9rem, 3.65vw, 2.9rem); line-height: 1.06; letter-spacing: -.05em; max-width: 29rem; }
 .cloud-body > p:not(.overline) { margin-top: 1rem; color: #d6e5eb; line-height: 1.65; max-width: 28rem; }
 .cloud-list {
   display: grid;
@@ -254,11 +254,20 @@ h2 {
 .cloud-list li::before { content: ""; background: var(--cyan); width: .34rem; height: .34rem; border-radius: 50%; flex: none; transform: translateY(-.16rem); }
 .cloud-picture { min-height: 18rem; }
 .cloud-picture img { width: 100%; height: 100%; object-fit: cover; object-position: 58% 48%; }
-.service-grid { margin-top: 1.25rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; align-items: start; }
+.service-group > h3 {
+  margin-bottom: 1rem;
+  font-size: clamp(1.35rem, 2.4vw, 1.8rem);
+  line-height: 1.2;
+  letter-spacing: -.035em;
+}
+.service-group-complementary { margin-top: clamp(2.2rem, 5vw, 4rem); }
+.service-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; align-items: start; }
+.cloud-feature + .service-grid { margin-top: 1.25rem; }
+.service-group-complementary .service-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .service-card { background: var(--white); border: 1px solid var(--line); border-radius: .55rem; overflow: hidden; }
 .service-card > img { width: 100%; height: clamp(10rem, 15vw, 13.3rem); object-fit: cover; object-position: center; }
 .card-body { padding: 1.35rem 1.4rem 1.1rem; }
-.card-body h3 { font-size: clamp(1.2rem, 2.05vw, 1.55rem); min-height: 2.55em; font-weight: 760; line-height: 1.18; letter-spacing: -.028em; }
+.card-body h4 { font-size: clamp(1.2rem, 2.05vw, 1.55rem); min-height: 2.55em; font-weight: 760; line-height: 1.18; letter-spacing: -.028em; }
 .card-body > p { margin: .36rem 0 1rem; min-height: 3.25em; color: var(--ink-muted); line-height: 1.6; }
 details { border-top: 1px solid var(--line); }
 summary {
@@ -400,6 +409,7 @@ details li + li { margin-top: .45rem; }
 }
 .public-sector-feature p { color: #d5e2e7; }
 .public-sector-feature .button {
+  appearance: none;
   min-height: 2.75rem;
   margin-top: 1.2rem;
   text-align: center;
@@ -479,6 +489,7 @@ details li + li { margin-top: .45rem; }
 @media (max-width: 1024px) {
   .site-nav { gap: .9rem; }
   .hero-content { max-width: 36rem; }
+  .service-group-complementary .service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .card-body > p { min-height: 4.8em; }
 }
 @media (max-width: 920px) {
@@ -488,7 +499,6 @@ details li + li { margin-top: .45rem; }
 }
 @media (max-width: 820px) {
   .cloud-feature, .about-inner { grid-template-columns: 1fr 1fr; }
-  .service-grid { grid-template-columns: repeat(2, 1fr); }
   .service-card > img { height: clamp(10rem, 22vw, 13rem); }
   .card-body > p { min-height: 3.25em; }
   .section-intro { grid-template-columns: 1fr; }
@@ -518,10 +528,11 @@ details li + li { margin-top: .45rem; }
   .button { padding-inline: .85rem; }
   .section-intro { margin-bottom: 1.5rem; }
   .cloud-feature, .about-inner, .service-grid, .technology-grid, .technology-cloud { grid-template-columns: 1fr; }
+  .service-group-complementary .service-grid { grid-template-columns: 1fr; }
   .cloud-picture { min-height: 0; }
   .cloud-picture img { height: auto; aspect-ratio: 1.75; }
   .service-card > img { height: clamp(11rem, 47vw, 14rem); }
-  .card-body h3, .card-body > p { min-height: 0; }
+  .card-body h4, .card-body > p { min-height: 0; }
   .about-inner { gap: 1.45rem; }
   .public-sector-grid { grid-template-columns: 1fr; }
   .public-sector-card:nth-child(n) { grid-column: auto; }

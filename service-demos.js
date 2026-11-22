@@ -30,7 +30,7 @@
     const request = {button,key};
     active = request;
     category.textContent = button.dataset.demoLabel
-      ?? button.closest('.service-card').querySelector('h3').textContent;
+      ?? button.closest('.service-card').querySelector('h4').textContent;
     title.textContent = captions[key];
     body.textContent = key === 'rack' ? '' : 'Cargando simulación…';
     dialog.showModal();
