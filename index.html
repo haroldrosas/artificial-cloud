@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ARTIFICIAL CLOUD E.I.R.L. diseña e integra soluciones de Cloud Computing, ciberseguridad e infraestructura TI para organizaciones en el Perú.">
+  <meta name="theme-color" content="#071621">
+  <meta property="og:title" content="ARTIFICIAL CLOUD | Ingeniería y tecnología integral">
+  <meta property="og:description" content="Cloud Computing, seguridad e infraestructura TI para empresas y entidades públicas.">
+  <meta property="og:type" content="website">
+  <title>ARTIFICIAL CLOUD | Ingeniería y tecnología integral</title>
+  <link rel="icon" href="assets/icono.png" type="image/png">
+  <link rel="preload" href="assets/pasillo-centro-de-datos.webp" as="image">
+  <link rel="stylesheet" href="styles.css?v=sectores-y-marcas">
+  <script src="main.js?v=sector-publico" defer></script>
+  <link rel="stylesheet" href="rack-3d.css?v=recorrido">
+  <script src="rack-3d.js?v=recorrido" defer></script>
+  <link rel="stylesheet" href="service-demos.css">
+  <script src="service-demos.js?v=sector-publico" defer></script>
+</head>
+<body id="inicio">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="#inicio" aria-label="ARTIFICIAL CLOUD, inicio">
+        <img src="assets/icono.png" alt="" width="46" height="46">
+        <span>ARTIFICIAL <strong>CLOUD</strong></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-controls="navegacion" aria-expanded="false" hidden>
+        <span class="menu-icon" aria-hidden="true"><i></i><i></i></span>
+        Menú
+      </button>
+      <nav class="site-nav" id="navegacion" aria-label="Navegación principal">
+        <a href="#servicios">Servicios</a>
+        <a href="#sector-publico">Sector público</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#metodologia">Metodología</a>
+        <a class="button button-nav" href="assets/ARTIFICIAL_CLOUD_Brochure.pdf" download>
+          <span class="download-icon" aria-hidden="true"></span> Brochure PDF
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido" tabindex="-1">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-visual" aria-hidden="true">
+        <img src="assets/pasillo-centro-de-datos.webp" alt="" width="1280" height="720" fetchpriority="high">
+        <video class="hero-video" data-src="assets/recorrido-centro-de-datos.mp4" preload="none" muted loop playsinline></video>
+      </div>
+      <div class="shell hero-inner">
+        <div class="hero-content">
+          <p class="overline"><span></span> CLOUD COMPUTING E INFRAESTRUCTURA TI</p>
+          <h1 id="hero-title">Ingeniería y <span>tecnología integral</span></h1>
+          <p class="hero-copy">Diseñamos e integramos soluciones de nube, ciberseguridad e infraestructura TI para empresas y entidades públicas.</p>
+          <div class="actions">
+            <a class="button button-primary" href="#recorrido-rack" data-rack-entry>Explorar rack 3D</a>
+            <a class="button button-ghost" href="#servicios">Explorar servicios</a>
+          </div>
+        </div>
+      </div>
+      <div class="shell hero-controls">
+        <a class="hero-scroll" href="#recorrido-rack"><span aria-hidden="true"></span> Recorrer el centro de datos</a>
+        <button class="hero-video-control" type="button" hidden>Pausar video</button>
+      </div>
+    </section>
+
+    <section class="rack-feature section" id="recorrido-rack" tabindex="-1" aria-labelledby="rack-feature-title">
+      <div class="shell rack-feature-inner">
+        <div class="rack-feature-copy">
+          <h2 id="rack-feature-title">Dentro del centro de datos</h2>
+          <p>Gira el rack, abre el panel y simula un corte eléctrico para ver cómo la UPS alimenta los equipos conectados.</p>
+          <a class="cloud-platform-link" href="#cloud-computing">Ver soluciones en la nube</a>
+        </div>
+        <div class="rack-experience" data-rack-experience>
+          <div class="rack-cover">
+            <img src="assets/infraestructura-ti.webp" alt="Detalle de un switch y su cableado dentro del rack" width="712" height="531" loading="lazy" decoding="async">
+            <button class="button rack-launch" type="button" aria-controls="rack-viewer" hidden>Abrir modelo 3D</button>
+          </div>
+          <p class="rack-status" role="status"></p>
+          <section id="rack-viewer" class="rack-viewer" aria-labelledby="rack-title" hidden>
+            <div class="rack-topline">
+              <h2 id="rack-title">Rack de centro de datos <span>3D</span></h2>
+              <button type="button" class="rack-close">Ver foto</button>
+            </div>
+            <div class="rack-toolbar">
+              <button type="button" class="rack-explore" aria-pressed="false" aria-controls="rack-power-panel">Explorar por dentro</button>
+              <button type="button" class="rack-tour" hidden>Iniciar recorrido</button>
+            </div>
+            <div class="rack-stage">
+              <canvas class="rack-gpu" aria-hidden="true"></canvas>
+              <canvas class="rack-cpu" aria-hidden="true" hidden></canvas>
+              <div class="rack-pins">
+                <button type="button" class="rack-pin" data-rack-part="servers" aria-pressed="true" aria-label="Explorar servidores" title="Servidores" hidden>1</button>
+                <button type="button" class="rack-pin" data-rack-part="network" aria-pressed="false" aria-label="Explorar switch" title="Switch" hidden>2</button>
+                <button type="button" class="rack-pin" data-rack-part="power" aria-pressed="false" aria-label="Explorar UPS" title="UPS" hidden>3</button>
+                <button type="button" class="rack-pin" data-rack-part="pdu" aria-pressed="false" aria-label="Explorar PDU" title="PDU" hidden>4</button>
+              </div>
+              <div class="rack-controls" role="group" aria-label="Girar el modelo">
+                <button type="button" data-rack-turn="-1" aria-label="Girar a la izquierda" title="Girar a la izquierda">Izquierda</button>
+                <button type="button" data-rack-reset>Restablecer</button>
+                <button type="button" data-rack-turn="1" aria-label="Girar a la derecha" title="Girar a la derecha">Derecha</button>
+              </div>
+            </div>
+            <p class="rack-help">Arrastra para girar o selecciona un componente.</p>
+            <div class="rack-parts" role="group" aria-label="Componentes del rack">
+              <button type="button" data-rack-part="servers" aria-pressed="true">Servidores</button>
+              <button type="button" data-rack-part="network" aria-pressed="false">Switch</button>
+              <button type="button" data-rack-part="pdu" aria-pressed="false">PDU</button>
+              <button type="button" data-rack-part="power" aria-pressed="false">UPS</button>
+            </div>
+            <p class="rack-description" aria-live="polite">Virtualización de servidores, almacenamiento y migración de cargas de trabajo a la nube.</p>
+            <section class="rack-power" id="rack-power-panel" aria-labelledby="rack-power-title" hidden>
+              <h3 id="rack-power-title">Respaldo eléctrico</h3>
+              <ol class="rack-power-path" aria-label="Ruta de alimentación">
+                <li><strong>Red eléctrica</strong><span data-power-grid>Activa</span></li>
+                <li><strong>UPS</strong><span data-power-ups>En línea</span></li>
+                <li><strong>PDU</strong><span data-power-pdu>Distribuyendo</span></li>
+                <li><strong>Equipos</strong><span data-power-rack>Operativos</span></li>
+              </ol>
+              <div class="rack-power-controls" role="group" aria-label="Simulación de un corte">
+                <button class="rack-power-toggle" type="button">Simular corte de energía</button>
+                <button class="rack-power-advance" type="button" disabled>Avanzar 5 min</button>
+              </div>
+              <label class="rack-load" for="rack-load">
+                <span>Carga simulada</span><output id="rack-load-value" for="rack-load" aria-live="off">1200 W</output>
+              </label>
+              <input id="rack-load" type="range" min="600" max="1800" step="100" value="1200" aria-describedby="rack-power-note" aria-valuetext="1200 vatios">
+              <dl class="rack-meters">
+                <div><dt>Autonomía restante</dt><dd data-power-runtime>En espera</dd></div>
+                <div><dt>Batería disponible</dt><dd data-power-battery>100 %</dd></div>
+              </dl>
+              <p class="rack-power-note" id="rack-power-note">Simulación didáctica con 360 Wh útiles de batería. Cada corte empieza con la batería cargada.</p>
+              <p class="rack-sr-only" role="status" data-power-announcement></p>
+            </section>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="section services" id="servicios" aria-labelledby="services-title">
+      <div class="shell">
+        <div class="section-intro">
+          <h2 id="services-title">Soluciones tecnológicas</h2>
+          <p>Integramos la nube con tu infraestructura y definimos el alcance según las necesidades de tu operación.</p>
+        </div>
+
+        <article class="cloud-feature" id="cloud-computing">
+          <div class="cloud-body">
+            <p class="overline"><span></span> NUESTRA ESPECIALIDAD</p>
+            <h3>Cloud Computing y virtualización</h3>
+            <p>Diseñamos entornos de nube pública, privada e híbrida y planificamos la migración de cada carga de trabajo.</p>
+            <ul class="cloud-list">
+              <li>Virtualización y consolidación de servidores</li>
+              <li>Almacenamiento y migración de aplicaciones</li>
+              <li>Respaldo, recuperación y pruebas de restauración</li>
+            </ul>
+            <a class="cloud-platform-link" href="#plataformas">Ver plataformas de nube</a>
+          </div>
+          <div class="cloud-picture">
+            <img src="assets/cloud.webp" alt="Racks de servidores de un centro de datos" width="712" height="531" loading="lazy" decoding="async">
+          </div>
+        </article>
+
+        <div class="service-grid">
+          <article class="service-card">
+            <img src="assets/ciberseguridad.webp" alt="Analista frente a pantallas de monitoreo" width="712" height="531" loading="lazy" decoding="async">
+            <div class="card-body">
+              <h3>Ciberseguridad</h3>
+              <p>Protección de redes, equipos de usuario y activos digitales.</p>
+              <div class="service-card-actions">
+                <details><summary>Ver alcance</summary>
+                  <ul><li>Firewalls de nueva generación, VPN y protección EDR.</li><li>Gestión de accesos y evaluación de vulnerabilidades.</li><li>Consultoría en seguridad de la información basada en ISO/IEC 27001.</li></ul>
+                </details>
+                <button class="service-demo-launch" type="button" data-service-demo="cyber" aria-haspopup="dialog" aria-label="Probar demo de Ciberseguridad" hidden>Probar demo</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <img src="assets/infraestructura-ti.webp" alt="Equipos de red y cableado estructurado en un gabinete" width="712" height="531" loading="lazy" decoding="async">
+            <div class="card-body">
+              <h3>Infraestructura TI</h3>
+              <p>Servidores, almacenamiento, redes empresariales y conectividad entre sedes.</p>
+              <div class="service-card-actions">
+                <details><summary>Ver alcance</summary>
+                  <ul><li>Redes LAN/WAN, switching, routing y Wi-Fi empresarial.</li><li>Cableado estructurado y gabinetes de comunicaciones.</li><li>Integración de servidores y sistemas de almacenamiento.</li></ul>
+                </details>
+                <button class="service-demo-launch" type="button" data-service-demo="infra" aria-haspopup="dialog" aria-label="Probar demo de Infraestructura TI" hidden>Probar demo</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <img src="assets/energia.webp" alt="Sala técnica con gabinetes eléctricos y sistemas de climatización" width="712" height="531" loading="lazy" decoding="async">
+            <div class="card-body">
+              <h3>Data Center y energía</h3>
+              <p>Infraestructura crítica para centros de datos y salas técnicas.</p>
+              <div class="service-card-actions">
+                <details><summary>Ver alcance</summary>
+                  <ul><li>Sistemas UPS, baterías y unidades PDU.</li><li>Racks, distribución eléctrica y monitoreo ambiental.</li><li>Climatización de precisión.</li></ul>
+                </details>
+                <button class="service-demo-launch" type="button" data-service-demo="rack" aria-haspopup="dialog" aria-label="Probar demo de Data Center y energía" hidden>Probar demo</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <img src="assets/seguridad-electronica.webp" alt="Cámara de seguridad instalada en el exterior de un edificio" width="712" height="531" loading="lazy" decoding="async">
+            <div class="card-body">
+              <h3>Seguridad electrónica</h3>
+              <p>Sistemas de vigilancia, acceso y alerta para instalaciones y espacios públicos.</p>
+              <div class="service-card-actions">
+                <details><summary>Ver alcance</summary>
+                  <ul><li>CCTV IP, gestión de video (VMS) y analítica.</li><li>Control de acceso, detección de intrusión y alarma de incendios.</li><li>Centros de monitoreo y soluciones para ciudades inteligentes.</li></ul>
+                </details>
+                <button class="service-demo-launch" type="button" data-service-demo="cctv" aria-haspopup="dialog" aria-label="Probar demo de Seguridad electrónica" hidden>Probar demo</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <img src="assets/software.webp" alt="Equipo de desarrollo trabajando con aplicaciones y datos" width="712" height="531" loading="lazy" decoding="async">
+            <div class="card-body">
+              <h3>Inteligencia artificial y software</h3>
+              <p>Aplicaciones empresariales y herramientas para automatizar procesos.</p>
+              <div class="service-card-actions">
+                <details><summary>Ver alcance</summary>
+                  <ul><li>Desarrollo a medida e integración mediante API.</li><li>Automatización, analítica de datos y aplicaciones de IA.</li></ul>
+                </details>
+                <button class="service-demo-launch" type="button" data-service-demo="software" aria-haspopup="dialog" aria-label="Probar demo de Inteligencia artificial y software" hidden>Probar demo</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <img src="assets/telecomunicaciones.webp" alt="Técnico conectando fibra óptica en un rack" width="1000" height="750" loading="lazy" decoding="async">
+            <div class="card-body">
+              <h3>Telecomunicaciones</h3>
+              <p>Conectividad para enlazar sedes, equipos y servicios de comunicación.</p>
+              <div class="service-card-actions">
+                <details><summary>Ver alcance</summary>
+                  <ul><li>Redes ópticas, fibra ADSS y GPON.</li><li>Enlaces inalámbricos punto a punto.</li><li>Redes de datos, comunicaciones IP e integración de equipos.</li></ul>
+                </details>
+                <button class="service-demo-launch" type="button" data-service-demo="fiber" aria-haspopup="dialog" aria-label="Probar demo de Telecomunicaciones" hidden>Probar demo</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section sectors" id="sectores" aria-labelledby="sectors-title">
+      <div class="shell">
+        <h2 id="sectors-title">Sectores que atendemos</h2>
+
+        <section class="sector-group" id="sector-publico" aria-labelledby="public-sector-title">
+          <h3 id="public-sector-title">Sector público</h3>
+          <p>Integramos infraestructura tecnológica según los requerimientos de cada entidad.</p>
+
+          <div class="public-sector-grid">
+            <article class="public-sector-card public-sector-feature" aria-labelledby="public-municipal-title">
+              <h4 id="public-municipal-title">Municipalidades y gobiernos regionales</h4>
+              <p>Videovigilancia para seguridad ciudadana, centros de monitoreo y conectividad entre sedes.</p>
+              <button class="button button-primary" type="button" data-service-demo="cctv" data-demo-label="Seguridad ciudadana" aria-haspopup="dialog" hidden>Simulador de videovigilancia</button>
+            </article>
+            <article class="public-sector-card" aria-labelledby="public-health-title">
+              <h4 id="public-health-title">Hospitales y establecimientos de salud</h4>
+              <p>Redes para sistemas hospitalarios, almacenamiento de datos y respaldo eléctrico para infraestructura TI.</p>
+            </article>
+            <article class="public-sector-card" aria-labelledby="public-penitentiary-title">
+              <h4 id="public-penitentiary-title">Establecimientos penitenciarios</h4>
+              <p>Videovigilancia, control de accesos y comunicaciones internas para la operación de la sede.</p>
+            </article>
+            <article class="public-sector-card" aria-labelledby="public-agency-title">
+              <h4 id="public-agency-title">Ministerios y otras entidades públicas</h4>
+              <p>Nube, servidores, ciberseguridad y copias de respaldo para plataformas y sistemas institucionales.</p>
+            </article>
+            <article class="public-sector-card" aria-labelledby="public-building-title">
+              <h4 id="public-building-title">Edificaciones públicas</h4>
+              <p>Cableado estructurado, Wi-Fi institucional, control de accesos y respaldo eléctrico para equipos tecnológicos.</p>
+            </article>
+          </div>
+
+          <div class="procurement">
+            <div>
+              <h4>Licitaciones y contrataciones públicas</h4>
+              <p>Según el alcance del proyecto, preparamos la documentación técnica, los protocolos de prueba y el plan de puesta en marcha.</p>
+            </div>
+            <a class="button button-primary" href="assets/ARTIFICIAL_CLOUD_Brochure.pdf" download>
+              <span class="download-icon" aria-hidden="true"></span> Descargar brochure
+            </a>
+          </div>
+        </section>
+
+        <section class="sector-group private-sector" id="sector-privado" aria-labelledby="private-sector-title">
+          <h3 id="private-sector-title">Sector privado</h3>
+          <dl class="private-sector-list">
+            <div>
+              <dt>Empresas e industria</dt>
+              <dd>Redes, automatización y respaldo para procesos de operación y producción.</dd>
+            </div>
+            <div>
+              <dt>Clínicas privadas</dt>
+              <dd>Conectividad y almacenamiento para aplicaciones clínicas y administrativas.</dd>
+            </div>
+            <div>
+              <dt>Instituciones educativas privadas</dt>
+              <dd>Wi-Fi para campus, cableado y plataformas digitales.</dd>
+            </div>
+            <div>
+              <dt>Operadores de telecomunicaciones</dt>
+              <dd>Redes de fibra óptica, enlaces y equipamiento de acceso.</dd>
+            </div>
+          </dl>
+        </section>
+      </div>
+    </section>
+
+    <section class="section technology" id="plataformas" aria-labelledby="technology-title">
+      <div class="shell">
+        <div class="section-intro">
+          <h2 id="technology-title">Plataformas y fabricantes</h2>
+          <p>Estas son opciones de referencia. La selección depende de la compatibilidad, los requisitos y el presupuesto de cada proyecto.</p>
+        </div>
+        <div class="technology-grid">
+          <article class="technology-category technology-cloud" aria-labelledby="technology-cloud-title">
+            <div>
+              <h3 id="technology-cloud-title">Nube</h3>
+              <p>Migración, operación en nube y recuperación ante desastres.</p>
+            </div>
+            <ul class="technology-brands" aria-label="Marcas de nube">
+              <li class="technology-brand-featured">
+                <img src="assets/marcas/aws.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
+                <span>Amazon Web Services (AWS)</span>
+              </li>
+              <li>
+                <img src="assets/marcas/azure.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
+                <span>Microsoft Azure</span>
+              </li>
+              <li>
+                <img src="assets/marcas/google-cloud.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
+                <span>Google Cloud</span>
+              </li>
+            </ul>
+          </article>
+          <article class="technology-category" aria-labelledby="technology-security-title">
+            <div>
+              <h3 id="technology-security-title">Ciberseguridad y firewalls</h3>
+              <p>Firewalls, VPN y segmentación de redes.</p>
+            </div>
+            <ul class="technology-brands" aria-label="Marcas de ciberseguridad y firewalls">
+              <li>
+                <img src="assets/marcas/fortinet.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
+                <span>Fortinet</span>
+              </li>
+              <li>
+                <img src="assets/marcas/palo-alto-networks.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
+                <span>Palo Alto Networks</span>
+              </li>
+              <li>
+                <img src="assets/marcas/check-point.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
+                <span>Check Point</span>
+              </li>
+            </ul>
+          </article>
+          <article class="technology-category" aria-labelledby="technology-networks-title">
+            <div>
+              <h3 id="technology-networks-title">Redes empresariales</h3>
+              <p>Switching, routing y redes inalámbricas.</p>
+            </div>
+            <ul class="technology-brands" aria-label="Marcas de redes empresariales">
+              <li>
+                <img src="assets/marcas/cisco.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
+                <span>Cisco</span>
+              </li>
+              <li>
+                <img src="assets/marcas/huawei.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
+                <span>Huawei</span>
+              </li>
+              <li>
+                <img src="assets/marcas/juniper.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
+                <span>Juniper Networks</span>
+              </li>
+            </ul>
+          </article>
+          <article class="technology-category" aria-labelledby="technology-compute-title">
+            <div>
+              <h3 id="technology-compute-title">Servidores y almacenamiento</h3>
+              <p>Cómputo, virtualización y almacenamiento de datos.</p>
+            </div>
+            <ul class="technology-brands" aria-label="Marcas de servidores y almacenamiento">
+              <li>
+                <img src="assets/marcas/hpe.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
+                <span>HPE</span>
+              </li>
+              <li>
+                <img src="assets/marcas/dell.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
+                <span>Dell Technologies</span>
+              </li>
+              <li>
+                <img src="assets/marcas/lenovo.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
+                <span>Lenovo</span>
+              </li>
+            </ul>
+          </article>
+          <article class="technology-category" aria-labelledby="technology-video-title">
+            <div>
+              <h3 id="technology-video-title">Videovigilancia</h3>
+              <p>Cámaras IP, grabación y gestión de video.</p>
+            </div>
+            <ul class="technology-brands" aria-label="Marcas de videovigilancia">
+              <li>
+                <img src="assets/marcas/hikvision.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
+                <span>Hikvision</span>
+              </li>
+              <li>
+                <img src="assets/marcas/dahua.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
+                <span>Dahua</span>
+              </li>
+              <li>
+                <img src="assets/marcas/uniview.webp" alt="" width="144" height="36" loading="lazy" decoding="async">
+                <span>Uniview</span>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section about" id="nosotros" aria-labelledby="about-title">
+      <div class="shell about-inner">
+        <img class="about-photo" src="assets/equipo-de-ingenieria.webp" alt="Profesionales de ingeniería revisando equipos en una sala técnica" width="712" height="531" loading="lazy" decoding="async">
+        <div class="about-copy">
+          <p class="overline"><span></span> QUIÉNES SOMOS</p>
+          <h2 id="about-title">Ingeniería aplicada a tu entorno</h2>
+          <p>Somos ARTIFICIAL CLOUD E.I.R.L., una empresa peruana que diseña, suministra, implementa e integra soluciones tecnológicas.</p>
+          <p>Evaluamos qué conviene migrar a la nube, cómo conectar los sistemas existentes y qué medidas de protección y continuidad requiere cada proyecto.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section method" id="metodologia" aria-labelledby="method-title">
+      <div class="shell">
+        <div class="section-intro">
+          <h2 id="method-title">Etapas de un proyecto</h2>
+          <p>Gestionamos el alcance, el cronograma y los riesgos de cada proyecto según los requisitos técnicos y normativos aplicables.</p>
+        </div>
+        <ol class="step-list">
+          <li><div class="step-marker" aria-hidden="true">1</div><h3>Diagnóstico</h3><p>Identificamos necesidades, condiciones del entorno y requerimientos técnicos.</p></li>
+          <li><div class="step-marker" aria-hidden="true">2</div><h3>Ingeniería y diseño</h3><p>Definimos la arquitectura, las especificaciones y los equipos de la solución.</p></li>
+          <li><div class="step-marker" aria-hidden="true">3</div><h3>Implementación</h3><p>Instalamos, configuramos e integramos los componentes previstos.</p></li>
+          <li><div class="step-marker" aria-hidden="true">4</div><h3>Pruebas y validación</h3><p>Verificamos el funcionamiento, documentamos las pruebas y registramos la puesta en marcha.</p></li>
+          <li><div class="step-marker" aria-hidden="true">5</div><h3>Soporte y continuidad</h3><p>Brindamos asistencia y mantenimiento según el alcance del proyecto.</p></li>
+        </ol>
+        <p class="method-standard">Tomamos como referencia ISO/IEC 27001 en los proyectos que incluyen requisitos de seguridad de la información.</p>
+      </div>
+    </section>
+
+    <section class="brochure" id="brochure" aria-labelledby="brochure-title">
+      <div class="shell brochure-inner">
+        <div>
+          <h2 id="brochure-title">Brochure corporativo</h2>
+          <p>Consulta el alcance de los servicios y los datos de la empresa en un solo documento.</p>
+        </div>
+        <a class="button button-primary" href="assets/ARTIFICIAL_CLOUD_Brochure.pdf" download>
+          <span class="download-icon" aria-hidden="true"></span> Descargar PDF
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="service-demo" id="service-demo" aria-labelledby="service-demo-title">
+    <header class="service-demo-header">
+      <div>
+        <p class="service-demo-category" data-demo-category></p>
+        <h2 id="service-demo-title" tabindex="-1" autofocus></h2>
+      </div>
+      <button class="service-demo-close" type="button">Cerrar</button>
+    </header>
+    <div class="service-demo-body" data-demo-body></div>
+  </dialog>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <div>
+        <a class="brand" href="#inicio" aria-label="ARTIFICIAL CLOUD, volver al inicio">
+          <img src="assets/artificial-cloud.webp" alt="" width="136" height="61" loading="lazy">
+        </a>
+        <p>Ingeniería y Tecnología Integral</p>
+      </div>
+      <div class="legal">
+        <p><strong>ARTIFICIAL CLOUD E.I.R.L.</strong></p>
+        <p>RUC 20616443349</p>
+        <p>San Ramón, Chanchamayo, Junín, Perú</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
